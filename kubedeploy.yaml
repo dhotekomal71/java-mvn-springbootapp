@@ -1,32 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: komaldhote123-deploy
+  name: loksai-eta-deploy
   labels:
-    app: komaldhote123-deploy-lbl
+    app: loksai-eta-deploy-lbl
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: komaldhote123-app
+      app: loksai-eta-app
   template:
     metadata:
       labels:
-        app: komaldhote123-app
+        app: loksai-eta-app
     spec:
       containers:
-      - name: komaldhote123-container
-        image: komaldhote123/sa-mywabappsvc:latest
+      - name: loksai-eta-container
+        image: loksaieta/sa-mywebapp:latest
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: komaldhote123-np-service
+  name: loksai-eta-np-service
   labels:
-    app: komaldhote123-np-app
+    app: loksai-eta-np-app
 spec:
   selector:
-    app: komaldhote123-deploy-lbl
+    app: loksai-eta-deploy-lbl
 
+  type: NodePort
+  ports:
+  - nodePort: 31028
+    port: 8080
+    targetPort: 8080
